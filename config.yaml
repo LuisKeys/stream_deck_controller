@@ -1,0 +1,33 @@
+keys:
+  0:
+    icon: "microsoft-edge.png"
+    command: "microsoft-edge"
+  1:
+    icon: "tabby.png"
+    command: "tabby"
+  2:
+    icon: "vscode.png"
+    command: "code"
+  3:
+    icon: "spotify.jpg"
+    command: "spotify"
+  4:
+    icon: "kate.png"
+    command: "kate"
+  5:
+    icon: "folder.jpg"
+    command: "dolphin ~/projects ~/Downloads"
+  6:
+    icon: "fast.png"
+    command: "microsoft-edge https://fast.com/"
+  7:
+    icon: "youtube.jpg"
+    command: "microsoft-edge https://youtube.com/"
+  8:
+    icon: "bbc.jpg"
+    command: "microsoft-edge https://www.bbc.com/mundo"
+  9:
+    icon: "teams.jpg"
+    command: "microsoft-edge https://teams.microsoft.com/v2/"
+
+  

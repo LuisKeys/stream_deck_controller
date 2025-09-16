@@ -1,0 +1,3 @@
+streamdeck
+pyyaml
+Pillow
