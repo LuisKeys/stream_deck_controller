@@ -12,8 +12,8 @@ keys:
     icon: "spotify.jpg"
     command: "spotify"
   4:
-    icon: "kate.png"
-    command: "kate"
+    icon: "writer.jpg"
+    command: "libreoffice --writer"
   5:
     icon: "folder.jpg"
     command: "dolphin ~/projects ~/Downloads"
@@ -29,5 +29,21 @@ keys:
   9:
     icon: "teams.jpg"
     command: "microsoft-edge https://teams.microsoft.com/v2/"
+  10:
+    icon: "linkedin.png"
+    command: "microsoft-edge https://www.linkedin.com/feed/"
+  11:
+      icon: "tn.jpg"
+      command: "microsoft-edge https://tn.com.ar/"
+  12:
+      icon: "smn.jpg"
+      command: "microsoft-edge https://www.smn.gob.ar/"
+  13:
+      icon: "focus.jpeg"
+      command: "xdotool key ctrl+alt+e"
+  14:
+      icon: "mic.jpeg"
+      command: "xdotool key ctrl+shift+m"
 
-  
+    
+    
