@@ -43,7 +43,7 @@ keys:
       command: "xdotool key ctrl+alt+e"
   14:
       icon: "mic.jpeg"
-      command: "xdotool key ctrl+shift+m"
+      command: "xdotool key ctrl+alt+shift+m"
 
     
     
