@@ -52,6 +52,20 @@ python main.py
 
 ---
 
+## Simon Dictate keys (8 and 9)
+
+Keys 8 and 9 (0-based, the 9th and 10th physical keys) press the **Mute** and **EN/ES** buttons of the floating "Simon" window (simon_dictate):
+
+```sh
+/usr/bin/python3 scripts/simon_ctl.py mute
+/usr/bin/python3 scripts/simon_ctl.py lang
+```
+
+`scripts/simon_ctl.py` finds the window by its name through the AT-SPI accessibility bus and clicks the button by its label. It doesn't move the mouse or change focus.
+It needs the system `python3` with `python3-gi` (Atspi), not the venv/conda env that runs `main.py`.
+
+---
+
 ## Autostart at Login (KDE Plasma)
 
 1. Create a file at `~/.config/autostart/stream_deck_control.desktop`:
