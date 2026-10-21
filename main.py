@@ -66,7 +66,8 @@ def render_key(deck, key_config):
 
 
 def run_command(command):
-    subprocess.Popen(command, shell=True)
+    # Run from the project dir so commands can use relative paths (scripts/...)
+    subprocess.Popen(command, shell=True, cwd=os.path.dirname(os.path.abspath(__file__)))
 
 
 def reset_deck(deck):

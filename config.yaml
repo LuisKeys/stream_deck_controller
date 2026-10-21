@@ -7,7 +7,7 @@ keys:
     command: "tabby"
   2:
     icon: "vscode.png"
-    command: "code"
+    command: "code-insiders"
   3:
     icon: "spotify.jpg"
     command: "spotify"
@@ -24,11 +24,11 @@ keys:
     icon: "youtube.jpg"
     command: "microsoft-edge https://youtube.com/"
   8:
-    icon: "bbc.jpg"
-    command: "microsoft-edge https://www.bbc.com/mundo"
+    icon: "simon-mute.png"
+    command: "/usr/bin/python3 scripts/simon_ctl.py mute"
   9:
-    icon: "teams.jpg"
-    command: "microsoft-edge https://teams.microsoft.com/v2/"
+    icon: "simon-lang.png"
+    command: "/usr/bin/python3 scripts/simon_ctl.py lang"
   10:
     icon: "linkedin.png"
     command: "microsoft-edge https://www.linkedin.com/feed/"
