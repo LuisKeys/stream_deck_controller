@@ -5,10 +5,14 @@ Usage: simon_ctl.py mute|lang
 
 Finds the "Simon" GTK window through the AT-SPI accessibility bus, locates the
 button by its label and invokes its "click" action. No mouse movement, no focus
-change, no coordinates. Bound to Stream Deck keys 8 and 9 in config.yaml.
+change, no coordinates. Afterwards it shows the new state (Muted/Mic on, EN/ES)
+as a notification in the middle of the screen via osd.py. Bound to Stream Deck keys 8 and 9 in config.yaml.
 Needs the system python3 (python3-gi with Atspi). Linux only.
 """
+import os
+import subprocess
 import sys
+import time
 
 import gi
 
@@ -50,6 +54,16 @@ def find_button(node, labels):
     return None
 
 
+def notify(kind, label):
+    if kind == "mute":
+        text = "🔇 Muted" if label == "Muted" else "🎤 Mic on"
+    else:
+        text = "🌐 " + ("English" if label == "EN" else "Español")
+    osd = os.path.join(os.path.dirname(os.path.abspath(__file__)), "osd.py")
+    subprocess.Popen([sys.executable, osd, text], start_new_session=True,
+                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
 def main():
     if len(sys.argv) != 2 or sys.argv[1] not in BUTTONS:
         print("usage: simon_ctl.py mute|lang", file=sys.stderr)
@@ -67,6 +81,12 @@ def main():
         return 1
 
     btn.get_action_iface().do_action(0)  # action 0 = "click"
+
+    # The label flips after the click; re-read it to show the new state.
+    time.sleep(0.15)
+    new = find_button(win, BUTTONS[sys.argv[1]])
+    if new is not None:
+        notify(sys.argv[1], new.get_name())
     return 0
 
 
