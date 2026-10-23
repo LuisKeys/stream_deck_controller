@@ -62,6 +62,7 @@ Keys 8 and 9 (0-based, the 9th and 10th physical keys) press the **Mute** and **
 ```
 
 `scripts/simon_ctl.py` finds the window by its name through the AT-SPI accessibility bus and clicks the button by its label. It doesn't move the mouse or change focus.
+After the click it re-reads the button label and shows the new state (`Muted`/`Mic on`, `English`/`Español`) for one second in the middle of the screen, using `scripts/osd.py`, a small borderless GTK window owned by this project (independent of Simon).
 It needs the system `python3` with `python3-gi` (Atspi), not the venv/conda env that runs `main.py`.
 
 ---
