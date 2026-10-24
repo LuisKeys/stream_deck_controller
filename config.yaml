@@ -12,11 +12,11 @@ keys:
     icon: "spotify.jpg"
     command: "spotify"
   4:
-    icon: "writer.jpg"
-    command: "libreoffice --writer"
+    icon: "calculator.png"
+    command: "kcalc"
   5:
-    icon: "folder.jpg"
-    command: "dolphin ~/projects ~/Downloads"
+    icon: "kwrite.png"
+    command: "kwrite"
   6:
     icon: "fast.png"
     command: "microsoft-edge https://fast.com/"
