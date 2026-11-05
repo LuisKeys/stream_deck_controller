@@ -84,11 +84,17 @@ def main():
         print("simon_ctl: dictation not available in Simon Core", file=sys.stderr)
         return 1
 
+    before = btn.get_name()
     btn.get_action_iface().do_action(0)  # action 0 = "click"
 
-    # The label flips after the click; re-read it to show the new state.
-    time.sleep(0.15)
-    new = find_button(win, BUTTONS[sys.argv[1]])
+    # Simon Core updates the label asynchronously after the click; poll until it
+    # changes (reading too early returns the old state and shows it inverted).
+    new = None
+    for _ in range(20):
+        time.sleep(0.1)
+        new = find_button(win, BUTTONS[sys.argv[1]])
+        if new is not None and new.get_name() != before:
+            break
     if new is not None:
         notify(sys.argv[1], new.get_name())
     return 0
