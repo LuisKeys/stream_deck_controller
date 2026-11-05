@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Press a button of the running Simon control window from the outside.
+"""Press a button of the running Simon Core panel window from the outside.
 
 Usage: simon_ctl.py mute|lang
 
-Finds the "Simon" GTK window through the AT-SPI accessibility bus, locates the
+Finds the "Simon Core" GTK window through the AT-SPI accessibility bus, locates the
 button by its label and invokes its "click" action. No mouse movement, no focus
 change, no coordinates. Afterwards it shows the new state (Muted/Mic on, EN/ES)
 as a notification in the middle of the screen via osd.py. Bound to Stream Deck keys 8 and 9 in config.yaml.
@@ -19,11 +19,12 @@ import gi
 gi.require_version("Atspi", "2.0")
 from gi.repository import Atspi  # noqa: E402
 
-WINDOW_NAME = "Simon"
-# Labels each button can show (see gui_linux.c in simon_dictate).
-# "Exit" is never listed, so it can never be pressed by mistake.
+WINDOW_NAME = "Simon Core"
+# Labels each button can show (see native/panel_linux.c in simon_core).
+# The mute button reads "Unmute" while muted.
+# "Quit Simon Core" is never listed, so it can never be pressed by mistake.
 BUTTONS = {
-    "mute": {"Mute", "Muted"},
+    "mute": {"Mute", "Unmute"},
     "lang": {"EN", "ES"},
 }
 
@@ -56,7 +57,7 @@ def find_button(node, labels):
 
 def notify(kind, label):
     if kind == "mute":
-        text = "🔇 Muted" if label == "Muted" else "🎤 Mic on"
+        text = "🔇 Muted" if label == "Unmute" else "🎤 Mic on"
     else:
         text = "🌐 " + ("English" if label == "EN" else "Español")
     osd = os.path.join(os.path.dirname(os.path.abspath(__file__)), "osd.py")
@@ -71,13 +72,16 @@ def main():
 
     win = find_window()
     if win is None:
-        print(f'simon_ctl: window "{WINDOW_NAME}" not found (is simon_dictate running? '
+        print(f'simon_ctl: window "{WINDOW_NAME}" not found (is simon_core running? '
               "is accessibility enabled?)", file=sys.stderr)
         return 1
 
     btn = find_button(win, BUTTONS[sys.argv[1]])
     if btn is None:
         print(f"simon_ctl: {sys.argv[1]} button not found", file=sys.stderr)
+        return 1
+    if not btn.get_state_set().contains(Atspi.StateType.SENSITIVE):
+        print("simon_ctl: dictation not available in Simon Core", file=sys.stderr)
         return 1
 
     btn.get_action_iface().do_action(0)  # action 0 = "click"
